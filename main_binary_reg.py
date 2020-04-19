@@ -153,6 +153,7 @@ def main():
             checkpoint = torch.load(checkpoint_file)
             # args.start_epoch = checkpoint['epoch'] - 1
             best_prec1 = checkpoint['best_prec1']
+            best_prec1 = torch.tensor(best_prec1)
             best_prec1 = best_prec1.cuda(args.gpus[0])
             model.load_state_dict(checkpoint['state_dict'])
             logging.info("loaded checkpoint '%s' (epoch %s)",
