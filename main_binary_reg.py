@@ -397,10 +397,14 @@ def forward(data_loader, model, criterion, epoch=0, training=True, optimizer=Non
             output = output[0]
 
         # measure accuracy and record loss
+        # prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
+        # losses.update(loss.data[0], inputs.size(0))
+        # top1.update(prec1[0], inputs.size(0))
+        # top5.update(prec5[0], inputs.size(0))
         prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
-        losses.update(loss.data[0], inputs.size(0))
-        top1.update(prec1[0], inputs.size(0))
-        top5.update(prec5[0], inputs.size(0))
+        losses.update(loss.item(), inputs.size(0))
+        top1.update(prec1.item(), inputs.size(0))
+        top5.update(prec5.item(), inputs.size(0))
 
         if training:
             # compute gradient and do SGD step
